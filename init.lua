@@ -104,6 +104,9 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
+-- Force cursor to remain the same when in insert mode
+vim.opt.guicursor = 'n-v-i-c:block-Cursor'
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -179,6 +182,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- replace the ^M at the end
+vim.api.nvim_set_keymap('n', '<leader>rr', [[:%s/\r//g<CR>]], { noremap = true, silent = true })
 
 -- TIP: Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -952,6 +958,17 @@ require('lazy').setup({
         },
       }
     end,
+  },
+  {
+    -- Add background color to HEX and other types of colors: green, #FF0000
+    'catgoose/nvim-colorizer.lua',
+    event = 'BufReadPre',
+    opts = { -- set to setup table
+    },
+  },
+  {
+    'sphamba/smear-cursor.nvim',
+    opts = {},
   },
   {
     -- The plugin location on GitHub
